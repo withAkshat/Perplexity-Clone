@@ -1,0 +1,19 @@
+import mongoose, { Schema } from "mongoose";
+
+const chatSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: users,
+        required: true
+    },
+
+    title: {
+        type: String,
+        default: "New Chat",
+        trim: ture
+    }
+}, {timestamps: true})
+
+const chatModel = mongoose.model("Chat", chatSchema)
+
+export default chatModel
