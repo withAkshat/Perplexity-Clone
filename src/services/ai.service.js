@@ -6,7 +6,7 @@ const model = new ChatGoogleGenerativeAI({
 });
 
 export async function testAi(){
-    model.invoke("do you think cars can be an emotion?")
+    model.invoke("Your Query??")
     .then((response)=>{
         console.log(response.text);
         

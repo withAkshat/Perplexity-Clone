@@ -131,6 +131,7 @@ export async function login(req, res) {
         })
     }
 
+
     const isPassTrue = await user.comparePassword(password);
 
     if (!isPassTrue) {
@@ -166,4 +167,37 @@ export async function login(req, res) {
             email: user.email
         }
     })
+}
+
+
+/**
+ * @desc Get current logged in user's details
+ * @route GET /api/auth/get-me
+ * @access Private
+ */
+export async function getMe(req, res) {
+
+    const userId = req.user.id;
+
+    const user = await userModel.findById(userId).select("-password");
+
+    if(!user){
+        return res.status(401).json({
+            message: "User not found",
+            sucess: false,
+            err: "User not found"
+        })
+    }
+
+    res.status(200).json({
+        message: "User details fetched sucessfully!",
+        success: true,
+        user: {
+            username: user.username,
+            email: user.email,
+            id: user._id
+        }
+    })
+
+
 }
