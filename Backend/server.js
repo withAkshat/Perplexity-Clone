@@ -1,9 +1,12 @@
 import dotenv from "dotenv"
+dotenv.config()
 import connectToDB from "./src/config/database.js";
 import app from "./src/app.js";
-import { testAi } from "./src/services/ai.service.js";
+import http from "http"
+import { initSocket } from "./src/sockets/server.socket.js";
 
-dotenv.config()
+const httpServer = http.createServer(app);
+initSocket(httpServer);
 
 connectToDB()
 .catch((err)=>{
