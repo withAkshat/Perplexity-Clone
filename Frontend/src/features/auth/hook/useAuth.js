@@ -5,7 +5,7 @@ import { setError, setLoading, setUser } from "../auth.slice.js";
 export  function useAuth(){
     const dispatch = useDispatch()
 
-    async function handleRegister({email, user, password}) {
+    async function handleRegister({email, username, password}) {
 
         try{
             
@@ -20,7 +20,7 @@ export  function useAuth(){
         }
     }
 
-    async function handleLogin({email, password}) {
+    async function handleLogin({email, username, password}) {
         
         try{
             

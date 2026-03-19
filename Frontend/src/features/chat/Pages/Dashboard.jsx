@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { useChat } from '../hooks/useChat';
+import { useChat } from '../hooks/useChat.js';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
@@ -11,12 +11,12 @@ const Dashboard = () => {
   console.log(auth);
 
   useEffect(()=>{
-    chat.initilizeSocketConnection()
+    chat.initializeSocketConnection()
   },[])
 
   return (
     <div>
-
+      hi i am dashboard
     </div>
   )
 }

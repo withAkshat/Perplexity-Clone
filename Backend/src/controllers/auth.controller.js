@@ -117,9 +117,16 @@ export async function verify(req, res) {
 
 export async function login(req, res) {
 
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
 
-    const user = await userModel.findOne({ username })
+    console.log(req.body);
+    
+    const user = await userModel.findOne({ 
+        $or:[
+            {username},
+            {email}
+        ]
+     })
 
     if (!user) {
 

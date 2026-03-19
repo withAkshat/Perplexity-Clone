@@ -1,9 +1,11 @@
 import dotenv from "dotenv"
 dotenv.config()
 import connectToDB from "./src/config/database.js";
-import app from "./src/app.js";
 import http from "http"
 import { initSocket } from "./src/sockets/server.socket.js";
+import app from "./src/app.js";
+
+const PORT = process.env.PORT || 8000
 
 const httpServer = http.createServer(app);
 initSocket(httpServer);
@@ -14,8 +16,7 @@ connectToDB()
     process.exit(1)
 })
 
-const PORT = process.env.PORT || 3000
 
-app.listen(PORT, (req, res)=>{
-    console.log("Server is running on 3000");  
+httpServer.listen(PORT, (req, res)=>{
+    console.log("Server is running on "+ PORT);  
 })

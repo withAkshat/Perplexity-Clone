@@ -1,8 +1,8 @@
-import { initilizeSocketConnection } from "../services/chat.socket.js";
+import { initializeSocketConnection } from "../services/chat.socket.js";
 
 export function useChat(){
     
     return {
-        initilizeSocketConnection,
+        initializeSocketConnection,
     }
 }
