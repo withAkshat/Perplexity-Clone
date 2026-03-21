@@ -18,5 +18,5 @@ connectToDB()
 
 
 httpServer.listen(PORT, (req, res)=>{
-    console.log("Server is running on "+ PORT);  
+    console.log("Server is running on "+ PORT) ;  
 })
