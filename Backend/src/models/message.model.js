@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
 
-const messageSchema = new Schema({
+const messageSchema = new mongoose.Schema({
     chat:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: Chat,
+        ref: "Chat",
         required: true
     },
 
@@ -14,9 +14,10 @@ const messageSchema = new Schema({
 
     role:{
         type: String,
-        emun: [ai, user],
+        enum: ["ai", "user"],
         required: true
     }
+    
 }, {timestamps: true})
 
 const messageModel = mongoose.model("Message", messageSchema)

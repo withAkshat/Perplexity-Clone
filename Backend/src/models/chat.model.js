@@ -1,16 +1,16 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const chatSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: users,
+        ref: "User",
         required: true
     },
 
     title: {
         type: String,
         default: "New Chat",
-        trim: ture
+        trim: true
     }
 }, {timestamps: true})
 

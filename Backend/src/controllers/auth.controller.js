@@ -1,6 +1,6 @@
 import userModel from "../models/user.model.js";
 import { sendEmail } from "../services/mail.service.js";
-import jwt from "jsonwebtoken"
+import jwt, { decode } from "jsonwebtoken"
 
 export async function register(req, res) {
     const { username, email, password } = req.body;
@@ -24,8 +24,9 @@ export async function register(req, res) {
     const user = await userModel.create({
         username,
         email,
-        password
+        password 
     })
+
 
 
     const emailVerificationToken = jwt.sign(
@@ -73,6 +74,11 @@ export async function verify(req, res) {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
+        if(!decoded){
+            return res.send("Invalid User!")
+        }
+        
+
         const { email } = decoded
 
         const user = await userModel.findOne({ email });
@@ -85,6 +91,17 @@ export async function verify(req, res) {
             })
         }
 
+        if (user.verified) {
+            const html =
+            `
+            <h1>Email Already Verfied!</h1>
+            <p>You can log in to your account.</p>
+            <a href="http://localhost:8000/login">Go to Login</a>
+            `
+
+            return res.send(html)
+        }
+
         user.verified = "true"
 
         await user.save();
@@ -93,7 +110,7 @@ export async function verify(req, res) {
             `
             <h1>Email Verified Successfully!</h1>
             <p>Your email has been verified. You can now log in to your account.</p>
-            <a href="http://localhost:3000/login">Go to Login</a>
+            <a href="http://localhost:8000/api/auth/login">Go to Login</a>
         `
 
         res.send(html)
@@ -119,14 +136,12 @@ export async function login(req, res) {
 
     const { username, email, password } = req.body;
 
-    console.log(req.body);
-    
-    const user = await userModel.findOne({ 
-        $or:[
-            {username},
-            {email}
+    const user = await userModel.findOne({
+        $or: [
+            { username },
+            { email }
         ]
-     })
+    })
 
     if (!user) {
 
@@ -188,7 +203,7 @@ export async function getMe(req, res) {
 
     const user = await userModel.findById(userId).select("-password");
 
-    if(!user){
+    if (!user) {
         return res.status(401).json({
             message: "User not found",
             sucess: false,
