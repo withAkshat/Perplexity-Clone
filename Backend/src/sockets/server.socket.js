@@ -22,5 +22,5 @@ export function getIO(){
         throw new Error("Socket io server is not initialized!")
     }
 
-    return io
+    return io 
 }
