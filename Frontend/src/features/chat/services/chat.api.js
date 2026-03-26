@@ -12,8 +12,6 @@ export const sendMessage = async ({ message, chatId }) => {
 
 export const getChats = async () => {
     const response = await api.post("/api/chats")
-    console.log(response.data);
-    
     return response.data
 }
 

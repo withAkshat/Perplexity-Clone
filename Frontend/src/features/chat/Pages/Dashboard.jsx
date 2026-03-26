@@ -34,10 +34,10 @@ const Dashboard = () => {
   }
 
   return (
-    <main className='min-h-screen w-full bg-[#07090f] p-3 text-white md:p-5'>
-      <section className='mx-auto flex h-[calc(100vh-1.5rem)] w-full gap-4 rounded-3xl border   p-1 md:h-[calc(100vh-2.5rem)] md:gap-6 md:p-1 border-none'>
-        <aside className='hidden h-full w-72 shrink-0 rounded-3xl border  bg-[#080b12] p-4 md:flex md:flex-col'>
-          <h1 className='mb-5 text-3xl font-semibold tracking-tight'>Perplexity</h1>
+    <main className='min-h-screen w-full bg-[#212121] p-3 text-white md:p-5 font-sans'>
+      <section className='mx-auto flex h-[calc(100vh-1.5rem)] w-full gap-4 rounded-3xl border border-amber-500  p-1 md:h-[calc(100vh-2.5rem)] md:gap-6 md:p-1 border-none'>
+        <aside className='hidden h-full w-72 shrink-0  border border-transparent border-r-gray-600/30  bg-transparent p-4 md:flex md:flex-col'>
+          <h1 className='mb-5 text-4xl font-semibold  text-orange-600 text-shadow text-shadow-amber-50'>PerpX</h1>
 
           <div className='space-y-2'>
             { /* {chats.map((chat) => (
@@ -54,7 +54,7 @@ const Dashboard = () => {
 
         <section className='relative max-w-3/5 mx-auto flex h-full min-w-0 flex-1 flex-col gap-4'>
 
-          <div className='messages flex-1 space-y-3 overflow-y-auto pr-1 pb-30'>
+          <div className='messages flex-1 space-y-3 overflow-y-auto pr-1 pb-30 border-orange-500'>
             {chats[currentChatId]?.messages.map((message) => (
               <div
                 key={message.id}
@@ -68,21 +68,21 @@ const Dashboard = () => {
             ))}
           </div>
 
-          <footer className='rounded-3xl w-full absolute bottom-2 border border-white/60 bg-[#080b12] p-4 md:p-5'>
-            <form onSubmit={handleSubmitMessage} className='flex flex-col gap-3 md:flex-row'>
+          <footer className='rounded-3xl w-full absolute bottom-0'>
+            <form onSubmit={handleSubmitMessage} className='flex w-[80%]  py-2 px-3 justify-center rounded-2xl bg-black/30 flex-col gap-3 md:flex-row'>
               <input
                 type='text'
                 value={chatInput}
                 onChange={(event) => setChatInput(event.target.value)}
-                placeholder='Type your message...'
-                className='w-full rounded-2xl border border-white/50 bg-transparent px-4 py-3 text-lg text-white outline-none transition placeholder:text-white/45 focus:border-white/90'
+                placeholder={`What's on your mind?`}
+                className='w-full  bg-transparent px-4 py-2 text-lg text-white outline-none transition placeholder:text-white/45 placeholder:text-sm focus:border-orange-300'
               />
               <button
                 type='submit'
                 disabled={!chatInput.trim()}
-                className='rounded-2xl border border-white/60 px-6 py-3 text-lg font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50'
+                className='rounded-[50%] aspect-square h-12 text-lg w-fit bg-orange-500 text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-none'
               >
-                Send
+                S
               </button>
             </form>
           </footer>
