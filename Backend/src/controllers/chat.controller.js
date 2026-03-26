@@ -23,8 +23,6 @@ export async function sendMessage(req, res) {
         role: "user"
     })
 
-    console.log(message, chatId);
-
     const messages = await messageModel.find({ chat: chatId || chat._id })
     const result = await generateResponse(messages)
 
@@ -47,8 +45,9 @@ export async function getChats(req, res) {
 
     const user = req.user;
 
-    const chats = await chatModel.find({ user: user._id })
-
+    const chats = await chatModel.find()
+    console.log(chats);
+    
     res.status(200).json({
         message: "Chats retrieved sucessfully!",
         chats: chats
@@ -66,7 +65,8 @@ export async function getMessages(req, res) {
     if (!chat) {
         return res.status(404).json({
             messages: "Chat not found",
-
+            success: false,
+            err: `Chat does not exists with id ${chatId}`
         })
     }
 
