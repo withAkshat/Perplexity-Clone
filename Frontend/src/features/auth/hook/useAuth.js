@@ -28,6 +28,8 @@ export  function useAuth(){
         try{
             
             const data = await login({email, password})
+            console.log(email);
+            
             dispatch(setUser(data.user))
             
             dispatch(setLoading(true))

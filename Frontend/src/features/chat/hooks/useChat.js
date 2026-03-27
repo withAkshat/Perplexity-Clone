@@ -31,18 +31,21 @@ export function useChat() {
     }
 
     async function handleGetChats(){
+        
         dispatch(setLoading(true))
         const data = await getChats()        
+        console.log(data);
         const { chats } = data
         dispatch(setChats( chats.reduce((acc, chat)=>{
             acc[chat._id] = {
                 id: chat._id,
                 title: chat.title,
-                messages: [...chat],
+                messages: [],
                 lastUpdated: chat.updatedAt
             }
-
+            
             return acc
+
         }, {}) ))
         dispatch(setLoading(false))
     }

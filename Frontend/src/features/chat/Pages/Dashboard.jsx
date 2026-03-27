@@ -1,20 +1,26 @@
 import { useSelector } from 'react-redux'
 import { useChat } from '../hooks/useChat.js';
 import { useEffect, useState } from 'react';
+import { RiSendPlane2Line } from "@remixicon/react";
 
 const Dashboard = () => {
   const chat = useChat()
 
   useEffect(() => {
     chat.initializeSocketConnection()
-    chat.handleGetChats()
+
+    async function getChats(params) {
+      await chat.handleGetChats()
+      
+    }
+    getChats()
   }, [])
 
 
   const [chatInput, setChatInput] = useState('')
   const [userMessage, setUserMessage] = useState('')
 
-  const chats = useSelector(state => state.chat)
+  const chats = useSelector(state => state.chat.chats)
   console.log(chats);
 
   const currentChatId = useSelector(state => state.chat.currentChatId)
@@ -40,22 +46,23 @@ const Dashboard = () => {
           <h1 className='mb-5 text-4xl font-semibold  text-orange-600 text-shadow text-shadow-amber-50'>PerpX</h1>
 
           <div className='space-y-2'>
-            { /* {chats.map((chat) => (
+            { Object.values(chats).map((chat,index) => (
               <button
-                key={chat.id}
+                onClick={()=>{openChat(chat.id)}}
+                key={index}
                 type='button'
-                className='w-full rounded-xl border border-white/60 bg-transparent px-3 py-2 text-left text-base font-medium text-white/90 transition hover:border-white hover:text-white'
+                className='w-full cursor-pointer rounded-xl border border-white/60 bg-transparent px-3 py-2 text-left text-base font-medium text-white/90 transition hover:border-white hover:text-white'
               >
                 {chat.title}
               </button>
-            ))} */ }
+            ))}
           </div>
         </aside>
 
         <section className='relative max-w-3/5 mx-auto flex h-full min-w-0 flex-1 flex-col gap-4'>
 
           <div className='messages flex-1 space-y-3 overflow-y-auto pr-1 pb-30 border-orange-500'>
-            {chats[currentChatId]?.messages.map((message) => (
+            {chats[currentChatId]? chats[currentChatId].messages.map((message) => (
               <div
                 key={message.id}
                 className={`max-w-[82%] w-fit rounded-2xl px-4 py-3 text-sm md:text-base ${message.role === 'user'
@@ -65,7 +72,9 @@ const Dashboard = () => {
               >
                 <p>{message.content}</p>
               </div>
-            ))}
+            )) :
+            <div>hey its me</div>
+            }
           </div>
 
           <footer className='rounded-3xl w-full absolute bottom-0'>
@@ -80,9 +89,9 @@ const Dashboard = () => {
               <button
                 type='submit'
                 disabled={!chatInput.trim()}
-                className='rounded-[50%] aspect-square h-12 text-lg w-fit bg-orange-500 text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-none'
+                className='flex justify-center items-center rounded-[50%] aspect-square h-11 text-lg w-fit bg-orange-500 text-white transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-none'
               >
-                S
+                <RiSendPlane2Line />
               </button>
             </form>
           </footer>
