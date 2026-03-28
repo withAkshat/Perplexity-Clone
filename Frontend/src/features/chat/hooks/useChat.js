@@ -40,7 +40,7 @@ export function useChat() {
             acc[chat._id] = {
                 id: chat._id,
                 title: chat.title,
-                messages: [],
+                messages:[],
                 lastUpdated: chat.updatedAt
             }
             
