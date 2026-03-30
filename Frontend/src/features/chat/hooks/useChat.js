@@ -66,7 +66,7 @@ export function useChat() {
                 messages: formattedMessages,
             }))
         }
-        dispatch(setCurrentChatId(chatId ))
+        dispatch(setCurrentChatId(chatId))
     }
 
     return {
